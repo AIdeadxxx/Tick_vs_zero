@@ -1,83 +1,128 @@
 from colorama import init, Fore
-
 init()
 
-# Игровое поле (список строк)
-board = [" " for _ in range(9)]  
+# Поле
+board = [" "] * 9
 
-# Функция для отрисовки поля
-def draw_board():
-    print(f"{Fore.YELLOW}"
-          f"  {board[0]} | {board[1]} | {board[2]}\n"
-          f" -----------\n"
-          f"  {board[3]} | {board[4]} | {board[5]}\n"
-          f" -----------\n"
-          f"  {board[6]} | {board[7]} | {board[8]}{Fore.RESET}\n")
+# Выигрышные комбинации
+wins = [
+    (0, 1, 2), (3, 4, 5), (6, 7, 8),
+    (0, 3, 6), (1, 4, 7), (2, 5, 8),
+    (0, 4, 8), (2, 4, 6)
+]
 
-# Проверка победителя
-def check_winner():
-    win_combos = [(0,1,2), (3,4,5), (6,7,8),  # Горизонтали
-                  (0,3,6), (1,4,7), (2,5,8),  # Вертикали
-                  (0,4,8), (2,4,6)]           # Диагонали
-    for a, b, c in win_combos:
-        if board[a] == board[b] == board[c] and board[a] != " ":
-            return board[a]  # Возвращаем "X" или "O"
-    return None
+# Скины для поля
+skins = {
+    "1": lambda: print(Fore.YELLOW +
+        "  ╔═══╦═══╦═══╗\n"
+        f"  ║ {board[0]} ║ {board[1]} ║ {board[2]} ║  \n"
+        "  ╠═══╬═══╬═══╣\n"
+        f"  ║ {board[3]} ║ {board[4]} ║ {board[5]} ║ \n"
+        "  ╠═══╬═══╬═══╣\n"
+        f"  ║ {board[6]} ║ {board[7]} ║ {board[8]} ║ \n"
+        "  ╚═══╩═══╩═══╝" + Fore.RESET
+    ),
+    "2": lambda: print(Fore.YELLOW +
+        f"  {board[0]} | {board[1]} | {board[2]}\n"
+        " ---+---+---\n"
+        f"  {board[3]} | {board[4]} | {board[5]}\n"
+        " ---+---+---\n"
+        f"  {board[6]} | {board[7]} | {board[8]}" + Fore.RESET
+    ),
+    "3": lambda: print(Fore.YELLOW +
+        f"🚀━━━🚀━━━🚀\n"
+        f"┃ {board[0]} ┃ {board[1]} ┃ {board[2]} ┃ \n"
+        f"🚀━━━🚀━━━🚀\n"
+        f"┃ {board[3]} ┃ {board[4]} ┃ {board[5]} ┃ \n"
+        f"🚀━━━🚀━━━🚀\n"
+        f"┃ {board[6]} ┃ {board[7]} ┃ {board[8]} ┃ \n"
+        f"🚀━━━🚀━━━🚀\n" + Fore.RESET
+    ),
+    "4": lambda: print(Fore.YELLOW +
+        f"░░░░░░░░░░░░░\n"
+        f"░ {board[0]} ░ {board[1]} ░ {board[2]} ░ \n"
+        f"░░░░░░░░░░░░░\n"
+        f"░ {board[3]} ░ {board[4]} ░ {board[5]} ░ \n"
+        f"░░░░░░░░░░░░░\n"
+        f"░ {board[6]} ░ {board[7]} ░ {board[8]} ░ \n"
+        f"░░░░░░░░░░░░░\n" + Fore.RESET
+    ),
+    "5" : lambda: print(Fore.YELLOW +
+        f"█▀▀▀█▀▀▀█▀▀▀█\n"
+        f"█ {board[0]} █ {board[1]} █ {board[2]} █ \n"
+        f"█▄▄▄█▄▄▄█▄▄▄█\n"
+        f"█ {board[3]} █ {board[4]} █ {board[5]} █ \n"
+        f"█▀▀▀█▀▀▀█▀▀▀█\n"
+        f"█ {board[6]} █ {board[7]} █ {board[8]} █ \n"
+        f"█▄▄▄█▄▄▄█▄▄▄█\n" + Fore.RESET
+    ),
+    "0" : lambda: print(Fore.YELLOW +
+        f"╭─1─┬─2─┬─3─╮\n"
+        f"│ {board[0]} │ {board[1]} │ {board[2]} │ \n"
+        f"├─4─┼─5─┼─6─┤\n"
+        f"│ {board[3]} │ {board[4]} │ {board[5]} │ \n"
+        f"├─7─┼─8─┼─9─┤\n"
+        f"│ {board[6]} │ {board[7]} │ {board[8]} │ \n"
+        f"╰───┴───┴───╯\n" + Fore.RESET
+    ),
+    "6" : lambda: print(Fore.YELLOW +
+        f"○───○───○───○\n"
+        f"│ {board[0]} │ {board[1]} │ {board[2]} │ \n"
+        f"○───○───○───○\n"
+        f"│ {board[3]} │ {board[4]} │ {board[5]} │ \n"
+        f"○───○───○───○\n"
+        f"│ {board[6]} │ {board[7]} │ {board[8]} │ \n"
+        f"○───○───○───○\n" + Fore.RESET
+    ),
+    "7" : lambda: print(Fore.YELLOW +
+        f"╱╲{board[0]}╱╲{board[1]}╱╲{board[2]}╱╲\n"
+        f"╲╱ ╲╱ ╲╱ ╲╱ \n"
+        f"╱╲{board[3]}╱╲{board[4]}╱╲{board[5]}╱╲\n"
+        f"╲╱ ╲╱ ╲╱ ╲╱ \n"
+        f"╱╲{board[6]}╱╲{board[7]}╱╲{board[8]}╱╲\n"
+        f"╲╱ ╲╱ ╲╱ ╲╱ \n" + Fore.RESET
+    ),
+    "8" : lambda: print(Fore.YELLOW +
+        f"{board[0]}ᛜ{board[1]}ᛝ{board[2]}ᛞ \n"
+        f"────────\n"
+        f"ᛟ{board[3]}ᛠ{board[4]}ᛡ{board[5]}ᛢ \n"
+        f"────────\n"
+        f"ᛣ{board[6]}ᛤ{board[7]}ᛥ{board[8]}ᛦ \n" + Fore.RESET
+    )
+}
 
-# Ввод хода
-def make_move(player):
-    while True:
-        try:
-            move = int(input(f"{Fore.RESET} Введите номер клетки (1-9) для {player}: ")) - 1
-            if 0 <= move < 9 and board[move] == " ":
-                board[move] = player
-                break
-            else:
-                print(f"{Fore.RED} Клетка занята или номер некорректный!{Fore.RESET}")
-        except ValueError:
-            print(f"{Fore.RED} Введите число от 1 до 9!{Fore.RESET}")
 
-# Основной игровой цикл
-print(f" {Fore.RED} Player 1 (X) {Fore.RESET} vs {Fore.BLUE} Player 2 (O)")
-draw_board()
+# Выбор скина
+print("Выберите скин:\n0 - Стиль лабиринт(для новачков) \n1 - С рамками\n2 - Классический (по умолчанию)\n3 - Космический\n4 - Стиль пиксель-арт\n5 - Стиль кирпичики\n6 - Стиль пузыри\n7 - Стиль паутина(хард)\n8 - Стиль древние руны(HELL)")
+skin_choice = input("Введите номер скина: ")
+draw_board = skins.get(skin_choice, skins["2"])  # По умолчанию классический скин
 
-for turn in range(9):  # Макс. 9 ходов
-    current_player = "X" if turn % 2 == 0 else "O"
-    make_move(current_player)
+turn = 0
+
+while turn < 9:
     draw_board()
+    player = "X" if turn % 2 == 0 else "O"
+    
+    try:
+        move = int(input(f"Игрок {player}, введите номер клетки (1-9): ")) - 1
+    except ValueError:
+        print(Fore.RED + "Введите число от 1 до 9." + Fore.RESET)
+        continue
 
-    winner = check_winner()
-    if winner:
-        print(f"{Fore.GREEN} Победил {winner}!{Fore.RESET}")
-        break
-else:
-    print(f"{Fore.CYAN} Ничья!{Fore.RESET}")
+    if move < 0 or move > 8 or board[move] != " ":
+        print(Fore.RED + "Неверный ход." + Fore.RESET)
+        continue
 
+    board[move] = player
 
+    # Проверяем победу
+    for a, b, c in wins:
+        if board[a] == board[b] == board[c] and board[a] != " ":
+            draw_board()
+            print(Fore.GREEN + f"Игрок {player} победил!" + Fore.RESET)
+            exit()
 
-# from colorama import*
-# # import asyncio
+    turn += 1
 
-# init()
-
-# print(f" {Fore.RED}           1) Player 1 (X) {Fore.RESET} vs {Fore.BLUE} 2) Player 2 (O)")
-
-# player_list = {"1", "2"}
-
-# while True:
-#     user_input = input(f"{Fore.RESET}Vidite variant: ")
-#     if user_input in player_list:
-#         print("Complit input")
-#         break
-#     else:
-        # print("Еблан шоли?")
-
-# print(f"{Fore.YELLOW}  "
-#                 "                        1 | 2 | 3\n  "
-#                 "                       -----------\n " 
-#                 "                         4 | 5 | 6\n  " 
-#                 "                       -----------\n " 
-#                 "                         7 | 8 | 9  ")
-
-
-
+draw_board()
+print(Fore.CYAN + "Ничья!" + Fore.RESET)
