@@ -11,9 +11,25 @@ wins = [
     (0, 4, 8), (2, 4, 6)
 ]
 
+# Доступные цвета
+colors = {
+    "1": Fore.RED,
+    "2": Fore.BLUE,
+    "3": Fore.YELLOW,
+    "4": Fore.GREEN,
+    "5": Fore.MAGENTA,
+    "6": Fore.CYAN,
+    "7": Fore.WHITE,
+}
+
+# Выбор цвета
+print("Выберите цвет скина:\n1 - Красный\n2 - Синий\n3 - Жёлтый\n4 - Зелёный\n5 - Фиолетовый\n6 - Березовый\n7 - Белый")
+color_choice = input("Введите номер цвета: ")
+chosen_color = colors.get(color_choice, Fore.RESET)
+
 # Скины для поля
 skins = {
-    "1": lambda: print(Fore.YELLOW +
+    "1": lambda: print(chosen_color +
         "  ╔═══╦═══╦═══╗\n"
         f"  ║ {board[0]} ║ {board[1]} ║ {board[2]} ║  \n"
         "  ╠═══╬═══╬═══╣\n"
@@ -22,14 +38,14 @@ skins = {
         f"  ║ {board[6]} ║ {board[7]} ║ {board[8]} ║ \n"
         "  ╚═══╩═══╩═══╝" + Fore.RESET
     ),
-    "2": lambda: print(Fore.YELLOW +
+    "2": lambda: print(chosen_color +
         f"  {board[0]} | {board[1]} | {board[2]}\n"
         " ---+---+---\n"
         f"  {board[3]} | {board[4]} | {board[5]}\n"
         " ---+---+---\n"
         f"  {board[6]} | {board[7]} | {board[8]}" + Fore.RESET
     ),
-    "3": lambda: print(Fore.YELLOW +
+    "3": lambda: print(chosen_color +
         f"🚀━━━🚀━━━🚀\n"
         f"┃ {board[0]} ┃ {board[1]} ┃ {board[2]} ┃ \n"
         f"🚀━━━🚀━━━🚀\n"
@@ -38,7 +54,7 @@ skins = {
         f"┃ {board[6]} ┃ {board[7]} ┃ {board[8]} ┃ \n"
         f"🚀━━━🚀━━━🚀\n" + Fore.RESET
     ),
-    "4": lambda: print(Fore.YELLOW +
+    "4": lambda: print(chosen_color +
         f"░░░░░░░░░░░░░\n"
         f"░ {board[0]} ░ {board[1]} ░ {board[2]} ░ \n"
         f"░░░░░░░░░░░░░\n"
@@ -47,7 +63,7 @@ skins = {
         f"░ {board[6]} ░ {board[7]} ░ {board[8]} ░ \n"
         f"░░░░░░░░░░░░░\n" + Fore.RESET
     ),
-    "5" : lambda: print(Fore.YELLOW +
+    "5" : lambda: print(chosen_color +
         f"█▀▀▀█▀▀▀█▀▀▀█\n"
         f"█ {board[0]} █ {board[1]} █ {board[2]} █ \n"
         f"█▄▄▄█▄▄▄█▄▄▄█\n"
@@ -56,7 +72,7 @@ skins = {
         f"█ {board[6]} █ {board[7]} █ {board[8]} █ \n"
         f"█▄▄▄█▄▄▄█▄▄▄█\n" + Fore.RESET
     ),
-    "0" : lambda: print(Fore.YELLOW +
+    "0" : lambda: print(chosen_color +
         f"╭─1─┬─2─┬─3─╮\n"
         f"│ {board[0]} │ {board[1]} │ {board[2]} │ \n"
         f"├─4─┼─5─┼─6─┤\n"
@@ -65,7 +81,7 @@ skins = {
         f"│ {board[6]} │ {board[7]} │ {board[8]} │ \n"
         f"╰───┴───┴───╯\n" + Fore.RESET
     ),
-    "6" : lambda: print(Fore.YELLOW +
+    "6" : lambda: print(chosen_color +
         f"○───○───○───○\n"
         f"│ {board[0]} │ {board[1]} │ {board[2]} │ \n"
         f"○───○───○───○\n"
@@ -74,7 +90,7 @@ skins = {
         f"│ {board[6]} │ {board[7]} │ {board[8]} │ \n"
         f"○───○───○───○\n" + Fore.RESET
     ),
-    "7" : lambda: print(Fore.YELLOW +
+    "7" : lambda: print(chosen_color +
         f"╱╲{board[0]}╱╲{board[1]}╱╲{board[2]}╱╲\n"
         f"╲╱ ╲╱ ╲╱ ╲╱ \n"
         f"╱╲{board[3]}╱╲{board[4]}╱╲{board[5]}╱╲\n"
@@ -82,7 +98,7 @@ skins = {
         f"╱╲{board[6]}╱╲{board[7]}╱╲{board[8]}╱╲\n"
         f"╲╱ ╲╱ ╲╱ ╲╱ \n" + Fore.RESET
     ),
-    "8" : lambda: print(Fore.YELLOW +
+    "8" : lambda: print(chosen_color +
         f"{board[0]}ᛜ{board[1]}ᛝ{board[2]}ᛞ \n"
         f"────────\n"
         f"ᛟ{board[3]}ᛠ{board[4]}ᛡ{board[5]}ᛢ \n"
