@@ -13,4 +13,7 @@ pip install tqdm
 ```
 pip install rich
 ```
+```
+pip install pygame
+```
 ## Они обеспечивают красивый стиль игры

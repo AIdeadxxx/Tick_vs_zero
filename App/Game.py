@@ -3,9 +3,42 @@ from TickTacBot import TicTacBot
 from tqdm import tqdm
 from rich.console import Console
 from rich.progress import SpinnerColumn, Progress
+import pygame
 import time
+import audio
 
+pygame.mixer.init()
 init()
+
+sound_ai = pygame.mixer.Sound("audio\/ai.wav")
+sound_color = pygame.mixer.Sound("audio\colors.wav")
+sound_skin = pygame.mixer.Sound("audio\skins.wav")
+sound_x = pygame.mixer.Sound("audio\/x.wav") 
+sound_o = pygame.mixer.Sound("audio\o.wav") 
+sound_gg = pygame.mixer.Sound("audio\gg.wav") 
+sound_win = pygame.mixer.Sound("audio\win.wav")
+
+def play_saund_win(sound_win):
+    sound_win.play()
+    time.sleep(5)
+def play_saund_o(sound_o):
+    sound_o.play()
+    time.sleep(1.5)
+def play_saund_x(sound_x):
+    sound_x.play()
+    time.sleep(1)
+def play_saund_ai(sound_ai):
+    sound_ai.play()
+    time.sleep(1)
+def play_saund_skins(sound_skin):
+    sound_skin.play()
+    time.sleep(1)
+def play_saund_colors(sound_color):
+    sound_color.play()
+    time.sleep(1)
+def play_saund_final(sound_gg):
+    sound_gg.play()
+    time.sleep(7)
 
 bot = None
 human_player = "X"
@@ -59,6 +92,7 @@ counter = 0
 
 while counter < drinks:
     mode = input("1 - Игрок против игрока, 2 - Игрок против бота?: ")
+    play_saund_ai(sound_ai)
     if mode == "2":
         bot = TicTacBot("O")
         print(f"{Fore.GREEN} Вы будте против бота. Бот будет играть за 'O'. {Fore.RESET}")
@@ -77,6 +111,7 @@ if counter == 3:
 # Выбор цвета
 print("Выберите цвет скина:\n1 - Красный\n2 - Синий\n3 - Жёлтый\n4 - Зелёный\n5 - Фиолетовый\n6 - Березовый\n7 - Белый")
 color_choice = input("Введите номер цвета: ")
+play_saund_colors(sound_color)
 chosen_color = colors.get(color_choice, Fore.RESET)
 
 # Скины для поля
@@ -166,6 +201,7 @@ print("Загрузка завершена!")
 # Выбор скина
 print("Выберите скин:\n0 - Стиль лабиринт(для новачков) \n1 - С рамками\n2 - Классический (по умолчанию)\n3 - Космический\n4 - Стиль пиксель-арт\n5 - Стиль кирпичики\n6 - Стиль пузыри\n7 - Стиль паутина(хард)\n8 - Стиль древние руны(HELL)")
 skin_choice = input("Введите номер скина: ")
+play_saund_skins(sound_skin)
 draw_board = skins.get(skin_choice, skins["2"])  # По умолчанию классический скин
 
 
@@ -195,6 +231,10 @@ while turn < 9:
     else:
         try:
             move = int(input(f"Игрок {player}, введите номер клетки (1-9): ")) - 1
+            if player == "X":
+                play_saund_x(sound_x)
+            elif player == "O":
+                play_saund_o(sound_o)
         except ValueError:
             print(Fore.RED + "Введите число от 1 до 9." + Fore.RESET)
             continue
@@ -210,9 +250,11 @@ while turn < 9:
         if board[a] == board[b] == board[c] and board[a] != " ":
             draw_board()
             print(Fore.GREEN + f"Игрок {player} победил!" + Fore.RESET)
+            play_saund_win(sound_win)
             exit()
 
     turn += 1
 
 draw_board()
+play_saund_final(sound_gg)
 print(Fore.CYAN + "Ничья!" + Fore.RESET)
