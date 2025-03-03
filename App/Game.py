@@ -10,13 +10,17 @@ import audio
 pygame.mixer.init()
 init()
 
-sound_ai = pygame.mixer.Sound("audio\/ai.wav")
-sound_color = pygame.mixer.Sound("audio\colors.wav")
-sound_skin = pygame.mixer.Sound("audio\skins.wav")
-sound_x = pygame.mixer.Sound("audio\/x.wav") 
-sound_o = pygame.mixer.Sound("audio\o.wav") 
-sound_gg = pygame.mixer.Sound("audio\gg.wav") 
-sound_win = pygame.mixer.Sound("audio\win.wav")
+try:
+    sound_ai = pygame.mixer.Sound("audio\/ai.wav")
+    sound_color = pygame.mixer.Sound("audio\colors.wav")
+    sound_skin = pygame.mixer.Sound("audio\skins.wav")
+    sound_x = pygame.mixer.Sound("audio\/x.wav") 
+    sound_o = pygame.mixer.Sound("audio\o.wav") 
+    sound_gg = pygame.mixer.Sound("audio\gg.wav") 
+    sound_win = pygame.mixer.Sound("audio\win.wav")
+except:
+    print(f"{Fore.RED}ЗАПУСКАЙ КОД ЧЕРЕЗ ТЕРМИНАЛ ЕСЛИ НЕТ ЗВУКА ЕБАНЫЙ КОМПИЛЯТОР ВИЕБЫВАЕТЬСЯ, ДЛЯ ЗАПУСКА ПЕРЕЙДЫ ВНУЖНУЮ ДИРЕКТОРИЮ ГДЕ ЛЕЖИТ ОСНОВНОЙ ФАЙЛ ДЛЯ ЗАПУСКА НАПИШИ python Game.py {Fore.RESET}")
+        
 
 def play_saund_win(sound_win):
     sound_win.play()
@@ -226,6 +230,7 @@ while turn < 9:
             while not progress.finished:
                 progress.update(task, advance=7)
                 time.sleep(0.1)
+        play_saund_o(sound_o)
         # print(f"{Fore.GREEN}Бот думает...{Fore.RESET}")
         move = bot.make_move(board)
     else:
