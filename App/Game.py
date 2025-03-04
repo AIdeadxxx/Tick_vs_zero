@@ -10,16 +10,16 @@ import audio
 pygame.mixer.init()
 init()
 
-try:
-    sound_ai = pygame.mixer.Sound("audio\/ai.wav")
-    sound_color = pygame.mixer.Sound("audio\colors.wav")
-    sound_skin = pygame.mixer.Sound("audio\skins.wav")
-    sound_x = pygame.mixer.Sound("audio\/x.wav") 
-    sound_o = pygame.mixer.Sound("audio\o.wav") 
-    sound_gg = pygame.mixer.Sound("audio\gg.wav") 
-    sound_win = pygame.mixer.Sound("audio\win.wav")
-except:
-    print(f"{Fore.RED}ЗАПУСКАЙ КОД ЧЕРЕЗ ТЕРМИНАЛ ЕСЛИ НЕТ ЗВУКА ЕБАНЫЙ КОМПИЛЯТОР ВИЕБЫВАЕТЬСЯ, ДЛЯ ЗАПУСКА ПЕРЕЙДЫ ВНУЖНУЮ ДИРЕКТОРИЮ ГДЕ ЛЕЖИТ ОСНОВНОЙ ФАЙЛ ДЛЯ ЗАПУСКА НАПИШИ python Game.py {Fore.RESET}")
+# try:
+sound_ai = pygame.mixer.Sound("audio\/ai.wav")
+sound_color = pygame.mixer.Sound("audio\colors.wav")
+sound_skin = pygame.mixer.Sound("audio\skins.wav")
+sound_x = pygame.mixer.Sound("audio\/x.wav") 
+sound_o = pygame.mixer.Sound("audio\o.wav") 
+sound_gg = pygame.mixer.Sound("audio\gg.wav") 
+sound_win = pygame.mixer.Sound("audio\win.wav")
+# except:
+#     print(f"{Fore.RED}ЗАПУСКАЙ КОД ЧЕРЕЗ ТЕРМИНАЛ ЕСЛИ НЕТ ЗВУКА ЕБАНЫЙ КОМПИЛЯТОР ВИЕБЫВАЕТЬСЯ, ДЛЯ ЗАПУСКА ПЕРЕЙДЫ ВНУЖНУЮ ДИРЕКТОРИЮ ГДЕ ЛЕЖИТ ОСНОВНОЙ ФАЙЛ ДЛЯ ЗАПУСКА НАПИШИ python Game.py {Fore.RESET}")
         
 
 def play_saund_win(sound_win):
@@ -261,5 +261,5 @@ while turn < 9:
     turn += 1
 
 draw_board()
-play_saund_final(sound_gg)
 print(Fore.CYAN + "Ничья!" + Fore.RESET)
+play_saund_final(sound_gg)
